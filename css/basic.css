@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei";
+}
+*::after{
+    box-sizing: border-box;
+}
+*::before{
+    box-sizing: border-box;
+}
+*{
+    transition: all 0.2s;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.code-wrapper{
+    flex:1;
+    height: 50%;
+    padding: 10px;
+}
+#code{
+    overflow: auto;
+    height: 100%;
+}
