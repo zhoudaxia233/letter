@@ -1,21 +1,22 @@
 !function(){
 
     function writeCode(code, duration, step=1, type='text'){
-        let selector = '#text'
+        let selector = '#text';
         if (type === 'code'){
-            selector = '#code'
+            selector = '#code';
         }
-        let container = document.querySelector(selector)
-        let n = 0
-        let id
+        let container = document.querySelector(selector);
+        let n = 0;
+        let id;
         setTimeout(function run(){
-            n += step
-            container.innerHTML = code.substring(0, n)
-            container.scrollTop = container.scrollHeight
+            n += step;
+            container.innerHTML = code.substring(0, n);
+            container.scrollTop = container.scrollHeight;
             if(n < code.length){
-                setTimeout(run, duration)
+                setTimeout(run, duration);
             }
-        }, duration)
+        }, duration);
+        return true;
     }
     let code = `
 <style>
@@ -481,5 +482,10 @@
 }
 </style>
 `
+    let text =
+`大家好，今天我们来画一只<span id="zsj">紫薯精</span>。
+啊不对，<style>#zsj{text-decoration: line-through;}</style>是灭霸！
+`
+    writeCode(text, duration=20, step=1, type='text');
     writeCode(code, duration=1, step=15, type='code');
 }()

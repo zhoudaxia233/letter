@@ -1,29 +1,29 @@
-*{
+* {
+    background-color: #F1F1F1;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei";
 }
-*::after{
+*::after {
     box-sizing: border-box;
 }
-*::before{
+*::before {
     box-sizing: border-box;
 }
-*{
+* {
     transition: all 0.2s;
 }
-body{
+body {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
-.code-wrapper{
+.code-wrapper {
     flex:1;
     height: 50%;
     padding: 10px;
 }
-#code{
-    overflow: auto;
-    height: 100%;
+#text {
+    overflow: hidden;
 }
