@@ -1,28 +1,28 @@
 !function () {
 
-  function writeCode(code, duration, step = 1, type = 'text') {
-      return new Promise(resolve => {
-          let selector = '#text';
-          if (type === 'code') {
-              selector = '#code';
-          }
-          let container = document.querySelector(selector);
-          let p = Promise.resolve();
-          for (let i = 1; i <= code.length; i += step) {
-              p = p.then(() => {
-                  return new Promise(resolve_loop => {
-                      setTimeout(function run() {
-                          container.innerHTML = code.substring(0, i);
-                          container.scrollTop = container.scrollHeight;
-                          resolve_loop();
-                      }, duration);
-                  })
-              })
-          }
-          p.then(() => { resolve(); });
-      })
-  }
-  let code = `
+    function writeCode(code, duration, step = 1, type = 'text') {
+        return new Promise(resolve => {
+            let selector = '#text';
+            if (type === 'code') {
+                selector = '#code';
+            }
+            let container = document.querySelector(selector);
+            let p = Promise.resolve();
+            for (let i = 1; i <= code.length; i += step) {
+                p = p.then(() => {
+                    return new Promise(resolve_loop => {
+                        setTimeout(function run() {
+                            container.innerHTML = code.substring(0, i);
+                            container.scrollTop = container.scrollHeight;
+                            resolve_loop();
+                        }, duration);
+                    })
+                })
+            }
+            p.then(() => { resolve(); });
+        })
+    }
+    let code = `
 <style>
 .face-container {
 width: 68px;
@@ -486,10 +486,10 @@ background: #f0ff00;
 }
 </style>
 `
-  let text =
-      `大家好，今天我们来画一只<span id="zsj">紫薯精</span>。
+    let text =
+        `大家好，今天我们来画一只<span id="zsj">紫薯精</span>。
 啊不对，<style>#zsj{text-decoration: line-through;}</style>是灭霸！
 `
-  let p = writeCode(text, duration = 60, step = 1, type = 'text');
-  p.then(() => { writeCode(code, duration = 1, step = 15, type = 'code'); });
+    let p = writeCode(text, duration = 60, step = 1, type = 'text');
+    p.then(() => { writeCode(code, duration = 1, step = 15, type = 'code'); });
 }()
