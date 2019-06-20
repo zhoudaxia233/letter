@@ -1,28 +1,22 @@
-!function () {
+!async function () {
 
-    function doNothing(duration) {
-        return new Promise(resolve => {
+    async function doNothing(duration) {
+        await new Promise(resolve => {
             setTimeout(() => { resolve(); }, duration);
         });
     }
 
-    function writeCode(code, duration, step = 1, selector = '#text') {
-        return new Promise(resolve => {
-            let container = document.querySelector(selector);
-            let p = Promise.resolve();
-            for (let i = 1; i <= code.length; i += step) {
-                p = p.then(() => {
-                    return new Promise(resolve_loop => {
-                        setTimeout(function run() {
-                            container.innerHTML = code.substring(0, i);
-                            container.scrollTop = container.scrollHeight;
-                            resolve_loop();
-                        }, duration);
-                    })
-                })
-            }
-            p.then(() => { resolve(); });
-        })
+    async function writeCode(code, duration, step = 1, selector = '#text') {
+        let container = document.querySelector(selector);
+        for (let i = 1; i <= code.length; i += step) {
+            await new Promise(resolve => {
+                setTimeout(function run() {
+                    container.innerHTML = code.substring(0, i);
+                    container.scrollTop = container.scrollHeight;
+                    resolve();
+                }, duration);
+            });
+        }
     }
     let code = `
 <style>
@@ -493,11 +487,11 @@ background: #f0ff00;
     let text3 = `啊不对，`
     let text4 = `<style>#zsj{text-decoration: line-through;}</style>`
     let text5 = `是灭霸！`
-    let p = writeCode(text1, duration = 150, step = 1, selector = '#text1');
-    p = p.then(() => writeCode(text2, duration = 5, step = 1, selector = '#text2'));
-    p = p.then(() => writeCode(text3, duration = 150, step = 1, selector = '#text3'));
-    p = p.then(() => writeCode(text4, duration = 5, step = 1, selector = '#text4'));
-    p = p.then(() => writeCode(text5, duration = 150, step = 1, selector = '#text5'));
-    p = p.then(() => doNothing(1000));
-    p.then(() => writeCode(code, duration = 1, step = 15, selector = '#code'));
+    await writeCode(text1, duration = 150, step = 1, selector = '#text1');
+    await writeCode(text2, duration = 5, step = 1, selector = '#text2');
+    await writeCode(text3, duration = 150, step = 1, selector = '#text3');
+    await writeCode(text4, duration = 5, step = 1, selector = '#text4');
+    await writeCode(text5, duration = 150, step = 1, selector = '#text5');
+    await doNothing(666);
+    await writeCode(code, duration = 1, step = 15, selector = '#code');
 }()
