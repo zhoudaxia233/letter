@@ -24,6 +24,6 @@ body {
     height: 50%;
     padding: 10px;
 }
-#text {
+#text1, #text2, #text3, #text4, #text5 {
     overflow: hidden;
-}
+} 

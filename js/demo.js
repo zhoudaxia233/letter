@@ -1,11 +1,13 @@
 !function () {
 
-    function writeCode(code, duration, step = 1, type = 'text') {
+    function doNothing(duration) {
         return new Promise(resolve => {
-            let selector = '#text';
-            if (type === 'code') {
-                selector = '#code';
-            }
+            setTimeout(() => { resolve(); }, duration);
+        });
+    }
+
+    function writeCode(code, duration, step = 1, selector = '#text') {
+        return new Promise(resolve => {
             let container = document.querySelector(selector);
             let p = Promise.resolve();
             for (let i = 1; i <= code.length; i += step) {
@@ -486,10 +488,16 @@ background: #f0ff00;
 }
 </style>
 `
-    let text =
-        `大家好，今天我们来画一只<span id="zsj">紫薯精</span>。
-啊不对，<style>#zsj{text-decoration: line-through;}</style>是灭霸！
-`
-    let p = writeCode(text, duration = 60, step = 1, type = 'text');
-    p.then(() => { writeCode(code, duration = 1, step = 15, type = 'code'); });
+    let text1 = `大家好，今天我们来画一只`
+    let text2 = `<p style="font-size:2vw"><span id="zsj">紫薯精！</span></p>`
+    let text3 = `啊不对，`
+    let text4 = `<style>#zsj{text-decoration: line-through;}</style>`
+    let text5 = `是灭霸！`
+    let p = writeCode(text1, duration = 150, step = 1, selector = '#text1');
+    p = p.then(() => writeCode(text2, duration = 5, step = 1, selector = '#text2'));
+    p = p.then(() => writeCode(text3, duration = 150, step = 1, selector = '#text3'));
+    p = p.then(() => writeCode(text4, duration = 5, step = 1, selector = '#text4'));
+    p = p.then(() => writeCode(text5, duration = 150, step = 1, selector = '#text5'));
+    p = p.then(() => doNothing(1000));
+    p.then(() => writeCode(code, duration = 1, step = 15, selector = '#code'));
 }()
